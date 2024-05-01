@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.Json;
 using Notes.Domain.Models;
 using Notes.Persistance.Exceptions;
 using Notes.Persistance.Services.Repositories.Abstraction;
-using System.Security.AccessControl;
 
 namespace Notes.Persistance.Services.Repositories.Emplementation
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationContext _context;
 

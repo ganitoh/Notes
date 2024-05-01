@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using Notes.Application.CQRS.Notes.Command;
+using Notes.Application.CQRS.Users.Command.CreateUser;
 using Notes.Domain.Models;
 
 
 namespace Notes.Application.CQRS
 {
-    public class NoteProfile : Profile
+    public class CQRSMapProfile : Profile
     {
-        public NoteProfile()
+        public CQRSMapProfile()
         {
             CreateMap<CreateNoteCommand, Note>();
+            CreateMap<CreateUserCommand, User>();
         }
     }
 }
