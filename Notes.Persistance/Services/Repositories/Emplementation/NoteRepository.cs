@@ -36,6 +36,9 @@ namespace Notes.Persistance.Services.Repositories.Emplementation
         public async Task<IEnumerable<Note>> GetAllAsync()
             => await _context.Notes.AsNoTracking().ToListAsync();
 
+        public async Task<IEnumerable<Note>> GetAllAsync(Guid userId) 
+            => await _context.Notes.AsNoTracking().Where(n=>n.UserId == userId).ToListAsync();
+
         public async Task<Note> GetEntityAsync(Guid id)
         {
             var note = await _context.Notes.AsNoTracking()

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.Json;
 using Notes.Domain.Models;
 using Notes.Persistance.Exceptions;
 using Notes.Persistance.Services.Repositories.Abstraction;

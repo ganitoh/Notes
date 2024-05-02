@@ -3,7 +3,7 @@ using MediatR;
 using Notes.Domain.Models;
 using Notes.Persistance.Services.Repositories.Abstraction;
 
-namespace Notes.Application.CQRS.Notes.Command
+namespace Notes.Application.CQRS.Notes.Command.CreateNote
 {
     public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand>
     {

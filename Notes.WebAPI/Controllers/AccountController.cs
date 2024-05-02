@@ -16,13 +16,19 @@ namespace Notes.WebAPI.Controllers
         }
 
 
+        [HttpPost("registration")]
         public async Task<IActionResult> RegistrationAccount([FromBody] UserRegisterRequest request)
         {
-            var command = new CreateUserCommand(request.login);
-            await _accountService.RegisterAccount(command, request.password);
+            var command = new CreateUserCommand(request.Login);
+            await _accountService.RegisterAccount(command, request.Password);
             return Ok();
         }
 
-        
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
+        {
+            var user = await _accountService.Login(request.Login, request.Password);
+            return Ok(user);
+        }
     }
 }
