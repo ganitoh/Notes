@@ -14,7 +14,7 @@ namespace Notes.Persistance.EntityConfiguration
                 .IsRequired()
                 .HasMaxLength(52);
 
-            builder.Property(u => u.Password)
+            builder.Property(u => u.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(52);
         }

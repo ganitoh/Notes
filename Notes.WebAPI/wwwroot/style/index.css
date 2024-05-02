@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    width: 90%;
+    background: #D8E3AB ;
+    height: 70px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.logo img{
+    height: 50px;
+    width: 50px;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.site-navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.site-navigation li {
+    display: inline-block;
+    margin-left: 20px; /* Промежуток между пунктами меню */
+}
+
+.site-navigation a {
+    color: #fff;
+    text-decoration: none;
+}
+

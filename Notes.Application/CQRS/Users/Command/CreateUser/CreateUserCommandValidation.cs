@@ -11,7 +11,7 @@ namespace Notes.Application.CQRS.Users.Command.CreateUser
         {
             RuleFor(u=>u.Id).NotEmpty();
             RuleFor(u=>u.Login).NotEmpty().MaximumLength(52);
-            RuleFor(u=>u.Password).NotEmpty().MaximumLength(52);
+            RuleFor(u=>u.PasswordHash).NotEmpty().MaximumLength(52);
         }
     }
 }

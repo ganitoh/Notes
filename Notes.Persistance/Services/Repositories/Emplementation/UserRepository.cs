@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using Notes.Domain.Models;
 using Notes.Persistance.Exceptions;
 using Notes.Persistance.Services.Repositories.Abstraction;
@@ -39,6 +40,18 @@ namespace Notes.Persistance.Services.Repositories.Emplementation
         public async Task<User> GetEntityAsync(Guid id)
         {
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+            if (user is null)
+                throw new EntityNotFoundException("пользователь не найден");
+
+            return user;
+        }
+
+        public async Task<User> GetEntityAsync(string login)
+        {
+            var user = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Login == login);
+
             if (user is null)
                 throw new EntityNotFoundException("пользователь не найден");
 

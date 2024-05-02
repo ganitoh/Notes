@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Notes.Application.CQRS;
+using Notes.Application.Services.PasswordHasher;
 
 namespace Notes.Application
 {
@@ -15,6 +16,7 @@ namespace Notes.Application
             });
 
             services.AddAutoMapper(typeof(CQRSMapProfile));
+            services.AddScoped<IPasswordHash,PasswordHash>();
         }
     }
 }
