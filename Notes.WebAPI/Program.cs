@@ -1,15 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Notes.Application;
+using Notes.Application.JWT;
 using Notes.Persistance;
+using Notes.WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Services
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistanceServices();
 builder.Services.AddPostgreSQL(
@@ -39,6 +40,10 @@ app.UseStaticFiles(new StaticFileOptions()
     FileProvider = new PhysicalFileProvider(
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "html"))
 });
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action}");
 
 
 #endregion

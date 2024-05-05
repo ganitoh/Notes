@@ -2,6 +2,10 @@
 using System.Reflection;
 using Notes.Application.CQRS;
 using Notes.Application.Services.PasswordHasher;
+using Notes.Application.JWT.Abstraction;
+using Notes.Application.JWT;
+using Notes.Application.Services.Emplementation;
+using Notes.Application.Services.Abstraction;
 
 namespace Notes.Application
 {
@@ -15,8 +19,11 @@ namespace Notes.Application
                     Assembly.GetExecutingAssembly());
             });
 
+            services.AddScoped<IAccountService,AccountService>();
+
             services.AddAutoMapper(typeof(CQRSMapProfile));
             services.AddScoped<IPasswordHash,PasswordHash>();
+            services.AddScoped<IJwtProvider,JwtProvider>();
         }
     }
 }

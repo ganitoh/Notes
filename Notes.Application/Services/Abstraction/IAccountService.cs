@@ -6,6 +6,6 @@ namespace Notes.Application.Services.Abstraction
     public interface IAccountService
     {
         Task RegisterAccount(CreateUserCommand command, string password);
-        Task<User> Login(string login, string password);
+        Task<string> Login(string login, string password);
     }
 }

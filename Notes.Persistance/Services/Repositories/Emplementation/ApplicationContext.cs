@@ -14,6 +14,8 @@ namespace Notes.Persistance.Services.Repositories.Emplementation
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

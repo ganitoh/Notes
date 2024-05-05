@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Notes.Application.JWT.Abstraction;
 using Notes.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace Notes.Application.JWT
 {
-    public class JwtProvider
+    public class JwtProvider : IJwtProvider
     {
         private readonly JwtOptions _options;
 
@@ -28,7 +29,7 @@ namespace Notes.Application.JWT
             var token = new JwtSecurityToken(
                 claims: claims,
                 signingCredentials:  signingCredentails,
-                expires: DateTime.UtcNow.AddHours(_options.ExpireHource));
+                expires: DateTime.UtcNow.AddHours(_options.ExpireHourse));
 
             var jwtTokenValue = new  JwtSecurityTokenHandler().WriteToken(token);
             return jwtTokenValue;

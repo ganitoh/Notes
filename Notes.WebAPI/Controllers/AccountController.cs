@@ -27,8 +27,9 @@ namespace Notes.WebAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
-            var user = await _accountService.Login(request.Login, request.Password);
-            return Ok(user);
+            var token = await _accountService.Login(request.Login, request.Password);
+            return Ok(token);
+            
         }
     }
 }
