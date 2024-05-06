@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.Extensions.FileProviders;
 using Notes.Application;
 using Notes.Application.JWT;
 using Notes.Persistance;
 using Notes.WebAPI;
+using Notes.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,13 @@ if (builder.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<CustomExceptionMiddleware>();
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always
+});
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();

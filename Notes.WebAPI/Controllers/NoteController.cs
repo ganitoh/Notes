@@ -1,12 +1,16 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
 using Notes.Application.CQRS.Notes.Command.CreateNote;
 using Notes.Application.CQRS.Notes.Command.DeleteNote;
 using Notes.Application.CQRS.Notes.Queries.GetAllNotesByUser;
+using Notes.WebAPI.Contracts.Request;
+using System.Security.Claims;
 
 namespace Notes.WebAPI.Controllers
 {
+    [Authorize]
     [Route("note")]
     public class NoteController : Controller
     {
@@ -18,15 +22,19 @@ namespace Notes.WebAPI.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateNote([FromBody] CreateNoteCommand commnad)
+        public async Task<IActionResult> CreateNote([FromBody] CreateNoteRequest request)
         {
-            await _mediator.Send(commnad);
+            var claims = User.Claims;
+            var userId  = Guid.Parse(claims.First(c => c.Type == "id").Value);
+            await _mediator.Send(new CreateNoteCommand(request.Subject,request.Text,userId));
             return Ok();
         }
 
         [HttpGet("get-all-by-user")]
-        public async Task <IActionResult> GetAllNoteByUser([FromQuery] Guid userId)
+        public async Task <IActionResult> GetAllNoteByUser()
         {
+            var claims = User.Claims;
+            var userId = Guid.Parse(claims.First(c => c.Type == "id").Value);
             var notes = await _mediator.Send(new GetAllNotesByUserRequest(userId));
             return Ok(notes);
         }

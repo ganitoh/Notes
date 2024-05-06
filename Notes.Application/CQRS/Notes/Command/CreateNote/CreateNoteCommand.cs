@@ -9,7 +9,7 @@ namespace Notes.Application.CQRS.Notes.Command.CreateNote
         public string Name { get; set; } = string.Empty;
         public string Text { get; set; } = string.Empty;
         public DateTime CreateAt { get; private set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public CreateNoteCommand()
         {
@@ -17,7 +17,7 @@ namespace Notes.Application.CQRS.Notes.Command.CreateNote
             CreateAt = DateTime.Now;
         }
 
-        public CreateNoteCommand(string name, string text, int userId)
+        public CreateNoteCommand(string name, string text, Guid userId)
         {
             Id = Guid.NewGuid();
             CreateAt = DateTime.Now;

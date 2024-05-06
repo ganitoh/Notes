@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Notes.Application.JWT;
 using System.Text;
@@ -11,8 +9,12 @@ namespace Notes.WebAPI
     {
         public static void  AddApiAuthentication(
             this IServiceCollection services,
-            IOptions<JwtOptions> jwtOptions)
+            IConfiguration configuration)
         {
+
+            var jwtOptions = new JwtOptions();
+            configuration.GetSection(nameof(JwtOptions)).Bind(jwtOptions);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
@@ -23,7 +25,7 @@ namespace Notes.WebAPI
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey))
+                            Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
                     };
 
                     options.Events = new JwtBearerEvents()

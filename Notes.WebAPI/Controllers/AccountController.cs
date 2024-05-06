@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Notes.Application.CQRS.Users.Command.CreateUser;
 using Notes.Application.Services.Abstraction;
 using Notes.WebAPI.Contracts.Request;
@@ -28,8 +30,15 @@ namespace Notes.WebAPI.Controllers
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
             var token = await _accountService.Login(request.Login, request.Password);
-            return Ok(token);
-            
+            HttpContext.Response.Cookies.Append("jwt-token", token);
+            return Ok();
+        }
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Delete("jwt-token");
+            return Ok();
         }
     }
 }
