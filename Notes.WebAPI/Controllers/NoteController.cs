@@ -1,12 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Writers;
 using Notes.Application.CQRS.Notes.Command.CreateNote;
 using Notes.Application.CQRS.Notes.Command.DeleteNote;
 using Notes.Application.CQRS.Notes.Queries.GetAllNotesByUser;
 using Notes.WebAPI.Contracts.Request;
-using System.Security.Claims;
 
 namespace Notes.WebAPI.Controllers
 {
